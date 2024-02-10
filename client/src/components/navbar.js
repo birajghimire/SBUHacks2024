@@ -2,10 +2,10 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <nav className="bg-[#F5F5F5] p-4 flex justify-between items-center">
+    <nav className="bg-[#F8F7ED] p-4 flex justify-between items-center">
       <div className="flex items-center">
         <img src="mindscribe_logo.png" alt="Logo" className="w-14 h-14 mr-2" />
-        <h1 className="text-[#1E1E1E] text-lg font-semibold">JOURNAL BOT</h1>
+        <h1 className="text-[#1E1E1E] text-xl font-semibold">MindScribe</h1>
       </div>
       <div className="font-pacifico">
         <div className="flex items-center space-x-4 text-[#1E1E1E] text-[16px]">

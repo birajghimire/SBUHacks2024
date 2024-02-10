@@ -36,7 +36,6 @@ async function deletePageInJournal(req, res) {
 
 }
 
-
 module.exports = {
     getJournal,
     getSingleJournal,

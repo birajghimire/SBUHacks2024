@@ -10,7 +10,7 @@ export default function Header({
     return(
         <div className="mb-10">
             <div className="flex justify-center">
-            <div className="font-mono text-center py-8 text-5xl text-blue-300">
+            <div className="font-pacifico text-center py-8 text-5xl text-blue-300">
                         <Typewriter
                         onInit={(typewriter) => {
                             typewriter.typeString('InsightJournal')
@@ -30,12 +30,12 @@ export default function Header({
                         />
                     </div>
             </div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            <h2 className="font-amatic-sc underline text-center text-3xl font-extrabold text-gray-900">
                 {heading}
             </h2>
-            <p className="mt-2 text-center text-sm text-gray-600 mt-5">
+            <p className="font-protest-riot mt-2 text-center text-sm text-gray-600 mt-5">
             {paragraph} {' '}
-            <Link to={linkUrl} className="font-medium text-blue-600 hover:text-blue-500">
+            <Link to={linkUrl} className="font-protest-riot text-blue-600 hover:text-blue-500">
                 {linkName}
             </Link>
             </p>

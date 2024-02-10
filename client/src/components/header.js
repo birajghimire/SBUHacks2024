@@ -10,10 +10,10 @@ export default function Header({
     return(
         <div className="mb-10">
             <div className="flex justify-center">
-            <div className="font-pacifico text-center py-8 text-5xl text-blue-300">
+            <div className="font-pacifico text-center py-8 text-5xl text-black">
                         <Typewriter
                         onInit={(typewriter) => {
-                            typewriter.typeString('InsightJournal')
+                            typewriter.typeString('MindScribe')
                             .callFunction(() => {
                                 console.log('String typed out!');
                             })

@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import React, {useNavigate} from 'react-router-dom';
+import { useState} from 'react';
 import { signupFields } from "../input_constants/formFields";
 import FormAction from "./formSubmit";
 import FormExtra from "./formExtraContent";
 import Input from "./input";
-
+import axios from 'axios';
 
 export default function Signup(){
     const initialState = signupFields.reduce((acc, field) => {
@@ -12,6 +13,7 @@ export default function Signup(){
     }, {});
 
     const [signupState, setSignupState] = useState(initialState);
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { id, value } = e.target; 
@@ -21,8 +23,30 @@ export default function Signup(){
         }));
     };
 
-    const handleSubmit=(e)=>{
+    async function handleSubmit(e) {
         e.preventDefault();
+        // Directly accessing state values, assuming signupState is correctly set up
+        const username = signupState['username'];
+        const email = signupState['email-address'];
+        const password = signupState['password'];
+        const confirmPassword = signupState['confirm-password'];
+    
+        console.log(username, email, password, confirmPassword); // Debugging: Ensure these values are correct
+    
+        try {
+            const result = await axios.post('http://localhost:8000/register', {
+                username,
+                email,
+                password,
+                confirmPassword
+            });
+
+            navigate('/')
+    
+            console.log(result.data); // Axios wraps the response in a data property
+        } catch (error) {
+            console.error('There was an error with the signup request:', error.response ? error.response.data : error.message);
+        }
     }
 
 

@@ -6,7 +6,7 @@ import JournalModalBox from "./journalModalBox";
 const patterns = [
   { id: "default", name: "ink", img: "url(ink_layer.svg)" },
   { id: "flowers", name: "flowers", img: "url(flowers.png)" },
-  { id: "pattern2", name: "fillinblank2", img: "url(ink_layer.svg)" },
+  { id: "rainbow", name: "rainbow", img: "url(rainbow.png)" },
 ];
 
 const JournalBox = ({ journalId, title, shortDescription, color, pattern, onJournalDeleted, onEdit, setAlertMessage }) => {

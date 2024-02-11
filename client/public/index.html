@@ -24,27 +24,9 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/937765/turn.js"></script>
     <title>MindScribe</title>
   </head>
   <body data-theme="light">
-    <script>
-      $(document).ready(function () {
-        // Check if the element with the ID 'journal' exists
-        if ($('#journal').length > 0) {
-          // Initialize the turn.js on the #journal element only if it exists
-          $('#journal').turn({
-            display: 'double',
-            width: 900,
-            height: 600,
-            gradients: true,
-            acceleration: true,
-            autoCenter: true
-          });
-        }
-      });
-    </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--

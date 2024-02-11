@@ -1,20 +1,26 @@
-const UserText = (props) => {
-    const style = props.side
-        ? { borderTopLeftRadius: '5%', borderBottomLeftRadius: '5%' }
-        : { borderTopRightRadius: '5%', borderBottomRightRadius: '5%' };
+import React, {useEffect} from "react";
+import './options.css';
 
-    return(
-        <div className="page" style={style}> 
-            <div className="content">
-                <p style={{ whiteSpace: 'pre-wrap' }}>
-                    {props.content}
-                </p>
-                <p>
-                    wadawdwadwad
-                </p>
+const Page = React.memo(React.forwardRef((props, ref) => {
+    useEffect(() => {
+        console.log("rendered")
+    }, [])
+    return (
+        <div className={`bg-page page bg-white border-solid border-2 border-sky-200 ${props.side ? 'page-right' : 'page-left'}`} ref={ref}>
+            <div className="flex items-stretch h-full w-full">
+                {!props.side && <div onClick={props.turnDirection} className="w-8">
+                </div>}
+                <div className="flex-1 mt-8 text-black">
+                    <div className="flex justify-between items-start">
+                        <h1 className="flex-1">{props.content}</h1>
+                    </div>
+                    <p className="mt-4">{props.content}</p>
+                </div>
+                {props.side && <div onClick={props.turnDirection} className="w-8">
+                </div>}
             </div>
         </div>
     );
-}
+}));
 
-export default UserText;
+export default Page;

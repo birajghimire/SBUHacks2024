@@ -1,24 +1,41 @@
+import React, { useEffect } from "react";
+import './options.css';
 import './aipage.css'
+import { useSelector } from "react-redux";
+import { selectText } from "../notebookEditorSlice";
+import axios from "axios";
+const FeedbackPage = React.forwardRef((props, ref) => {
+    const msg = useSelector(selectText);
 
-const FeedbackPage = (props) => {
-    function createFeedBack() {
-        console.log("Creating FeedBack");
-        console.log("User text ", props.text);
-        console.log("Entries in feedback is ", props.entries);
-        props.setEntries([...props.entries, props.text, "Ai Response"]);
-        console.log("Entries in feedback is ", props.entries);
-
+    async function createFeedBack() {
+        console.log("Creating Feedback");
+        console.log(msg);
+        const prompt = {"prompt" : msg};
+        try{
+            let response = await axios.post("http://localhost:8000/chat", prompt);
+            console.log(response);
+        }
+        catch(e){
+            console.log(e);
+        }
+        //props.setEntries([...props.entries, props.text, "Ai Response"]);
     }
     return (
-        <div className="page flex justify-center items-center" style={{ borderTopRightRadius: '5%', borderBottomRightRadius: '5%' }}>
-            {<div onClick={createFeedBack} className="avatar">
-                <div className="rounded-full w-20 bg-neutral flex items-center justify-center">
-                    <div className="w-24 btn btn-ghost btn-circle text-neutral-content">
-                        <img src={"bot.png"} alt="Default" />
+        <div className={`bg-page page bg-white ${props.side ? 'page-right' : 'page-left'}`} ref={ref}>
+            <div className="flex items-stretch h-full w-full">
+                {!props.side && <div onClick={props.turnDirection} className="w-8">
+                </div>}
+                <div className="w-full flex justify-center items-center">
+                    <div onClick={createFeedBack} className="cursor-pointer">
+                        <div className="btn rounded-full w-20 h-20 bg-neutral flex items-center justify-center">
+                            <img src="bot.png" alt="Default" className="w-12 h-12" />
+                        </div>
                     </div>
                 </div>
-            </div>}
+                {props.side && <div onClick={props.turnDirection} className="w-8">
+                </div>}
+            </div>
         </div>
     );
-}
+});
 export default FeedbackPage;

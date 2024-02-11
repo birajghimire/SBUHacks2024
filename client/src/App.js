@@ -7,6 +7,7 @@ import SignupPage from './pages/signup';
 import LoginPage from './pages/login';
 import HomePage from './pages/home';
 import JournalPage from './pages/journal';
+import Navbar from './components/navbar';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
     path: "/test",
     element:
     <>
+      <Navbar className="absolute" />
       <JournalPage />
     </>
   },

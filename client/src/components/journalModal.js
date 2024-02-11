@@ -1,18 +1,30 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { SketchPicker, ChromePicker } from "react-color";
 import JournalModalBox from "./journalModalBox";
+import axios from "axios";
+
 
 const patterns = [
   { id: "default", name: "ink", img: "url(ink_layer.svg)" },
   { id: "flowers", name: "flowers", img: "url(flowers.png)" },
-  { id: "pattern2", name: "fillinblank2", img: "url(ink_layer.svg)" },
+  { id: "rainbow", name: "rainbow", img: "url(rainbow.png)" },
 ];
 
-const JournalModal = ({ isOpen, onClose }) => {
-  const [color, setColor] = useState("#fff");
+const JournalModal = ({ isOpen, onClose, onJournalCreated, editingJournal, setAlertMessage }) => {
   const [title, setTitle] = useState("");
+  const [shortDescription, setShortDescription] = useState("");
+  const [color, setColor] = useState("#fff");
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
   const [pattern, setPattern] = useState(patterns[0].id);
+
+  useEffect(() => {
+    if (isOpen && editingJournal) {
+      setTitle(editingJournal.title);
+      setShortDescription(editingJournal.shortDescription);
+      setColor(editingJournal.color);
+      setPattern(editingJournal.pattern);
+    }
+  }, [isOpen, editingJournal]);
 
   const toggleColorPicker = () => {
     setColorPickerOpen((prev) => !prev);
@@ -31,8 +43,46 @@ const JournalModal = ({ isOpen, onClose }) => {
     e.stopPropagation();
   };
 
-  const handleCreate = () => {
-    console.log("Creating journal...");
+  const clearAllFields = () => {
+    setTitle("");
+    setShortDescription("");
+    setColor("#fff");
+    setPattern(patterns[0].id);
+    setColorPickerOpen(false);
+  };
+
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    const journalData = { title, shortDescription, color, pattern };
+
+    try {
+      let response;
+      if (editingJournal) {
+        // Update existing journal
+        response = await axios.put(`http://localhost:8000/journal/${editingJournal.journalId}`, journalData);
+        setAlertMessage("Journal Successfully Edited"); // Use the function to set the alert message
+      } else {
+        // Create new journal
+        response = await axios.post("http://localhost:8000/journal", journalData);
+        setAlertMessage("Journal Successfully Created"); // Use the function to set the alert message
+      }
+      console.log("Journal saved: ", response.data);
+      onJournalCreated(); // Notify parent component to refresh list
+      onClose(); // Close the modal
+      clearAllFields(); // Clear the form fields
+    } catch (error) {
+      console.log("Error saving the journal", error);
+    }
+  };
+
+  const handleX = async (e) => {
+    e.preventDefault();
+    try {
+      onClose();
+      clearAllFields();
+    } catch (error) {
+      console.log("Did not close");
+    }
   };
 
   const patternImage = useMemo(() => {
@@ -46,7 +96,7 @@ const JournalModal = ({ isOpen, onClose }) => {
       <div className="bg-[#F5F5F5] w-[65%] h-[80%] rounded-xl shadow-lg p-6 relative flex flex-col items-stretch gap-2">
         <button
           className="absolute top-2 right-2 bg-transparent border-none text-gray-400 hover:text-gray-600"
-          onClick={onClose}
+          onClick={handleX}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -83,6 +133,7 @@ const JournalModal = ({ isOpen, onClose }) => {
                   type="text"
                   placeholder="Describe AI Companion..."
                   className="w-full border-b border-gray-700 text-[#6F6F6F] bg-[#F5F5F5] px-3 py-2 focus:outline-none focus:border-blue-500"
+                  onChange={(e) => setShortDescription(e.target.value)}
                 />
               </div>
               <div>
@@ -134,11 +185,12 @@ const JournalModal = ({ isOpen, onClose }) => {
                 text={title}
                 patternImage={patternImage}
               />
+
               <button
                 onClick={handleCreate}
                 className="bg-white text-black text-3xl font-bold border-2 border-black px-4 py-2 rounded font-amatic-sc active:bg-slate-400 transition-colors"
               >
-                Create
+                {editingJournal ? "Save" : "Create"}
               </button>
             </div>
           </div>

@@ -59,11 +59,11 @@ async function postPageInJournal(req, res) {
 //Just updated the title and shortDescription so that the pages in it arent affected
 async function updateJournal(req, res) {
   try {
-    const { title, shortDescription, bookColor, pattern } = req.body;
+    const { title, shortDescription, color, pattern } = req.body;
 
     const updatedJournal = await Journal.findByIdAndUpdate(
       req.params.journalId,
-      { title, shortDescription, bookColor, pattern }, // update only these fields
+      { title, shortDescription, color, pattern }, // update only these fields
       { new: true, runValidators: true }
     );
 

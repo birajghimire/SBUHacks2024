@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import { SketchPicker, ChromePicker } from "react-color";
 import JournalModalBox from "./journalModalBox";
 import axios from "axios";
+import AlertMessage from "./alertMessage";
 
 
 const patterns = [

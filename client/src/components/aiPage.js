@@ -4,14 +4,14 @@ import './aipage.css'
 import { useSelector } from "react-redux";
 import { selectText } from "../notebookEditorSlice";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 const FeedbackPage = React.forwardRef((props, ref) => {
+    //console.log("Props ", props.data);
     const msg = useSelector(selectText);
-    const navigate = useNavigate();
     async function createFeedBack() {
         console.log("Creating Feedback");
         console.log(msg);
-        const prompt = {"prompt" : msg};
+        const prompt = {"prompt" : msg, "shortDescription": props.data.description};
         try{
             
             const response = await axios.post("http://localhost:8000/chat", prompt);

@@ -29,16 +29,16 @@ function JournalPage() {
     const [data, setData] = useState(null)
 
     const book = useRef();
-    useEffect(() => {
-        if(loading || error || !data || !book.current)
-            return;
-        let temp = book.current.pageFlip();
-        if(!temp)
-        {
-            return;
-        }
-        temp.turnToPage(data.pages.length+3);
-    }, [searchParams, loading, error, data, book]);
+    // useEffect(() => {
+    //     if(loading || error || !data || !book.current)
+    //         return;
+    //     let temp = book.current.pageFlip();
+    //     if(!temp)
+    //     {
+    //         return;
+    //     }
+    //     temp.turnToPage(data.pages.length+3);
+    // }, [searchParams, loading, error, data, book]);
     // const [dataLoaded, setDataLoaded] = useState(false);
 
     // illegal to update constant inside useEffect
@@ -288,6 +288,7 @@ function JournalPage() {
                     turnDirection={goPrevPage}
                 />
                 <FeedbackPage
+                    data={data}
                     id={journalId}
                     key={"Feedback"}
                     setData={setData}

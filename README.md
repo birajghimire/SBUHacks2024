@@ -16,13 +16,13 @@ Submitted by:
 
 ## Summary
 
-
+---
 
 **MindScribe:** Elevate journaling with personalized bot companions. Specify any companion to your imagination from therapists to fitness coaches, for empathetic responses and tailored guidance. 
 
 
 ## Features
-
+---
 <!-- Please be sure to change the [ ] to [x] for any features you completed.  If a feature is not checked [x], you might miss the points for that item! -->
 ### Design and Interface
  - [x] Create an intuitive and aesthetic app blueprint using Figma.

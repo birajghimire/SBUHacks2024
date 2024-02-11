@@ -1,38 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Protest+Riot&family=Righteous&display=swap');
-.cover {
-    font-size: 150%;
-    font-family: "Protest Revolution";
-    /* box-shadow: 0 0 10px #999; */
-    border-top-left-radius: 0px !important;
-    /* background-image: url("../../public/cover2.avif") !important; */
-    /* background-color: white; */
-    text-align: center;
-    color: rgb(0, 0, 0);
-    height: 610px;
-    position: relative;
-    border-top-right-radius: 5%;
-    border-bottom-right-radius: 5%;
-  }
-  
-  /* .hard h4 {
-    font-family: "Protest Riot";
-    color: rgb(0, 0, 0);
-    position: relative; 
-    z-index: 2; 
-    margin-top: 10%;
-  } */
 
-  .coverback {
+.page {
     font-size: 150%;
     font-family: "Protest Revolution";
     /* box-shadow: 0 0 10px #999; */
     /* border-top-left-radius: 0px !important; */
-    /* background-color: white; */
-    background-image: url("../../public/cover2.avif") !important;
+    /* background-color: black; */
+    background-image: url("../../public/flowers_transparent.png") !important;
     text-align: center;
     height: 610px;
-    position: relative;
-    border-top-left-radius: 5%;
-    border-bottom-left-radius: 5%;
-  }
-  
+    /* border-top-left-radius: 5%;
+    border-bottom-left-radius: 5%; */
+    }

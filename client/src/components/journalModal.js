@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { SketchPicker, ChromePicker } from "react-color";
 import JournalModalBox from "./journalModalBox";
 import axios from "axios";
+
 
 const patterns = [
   { id: "default", name: "ink", img: "url(ink_layer.svg)" },
@@ -9,12 +10,21 @@ const patterns = [
   { id: "pattern2", name: "fillinblank2", img: "url(ink_layer.svg)" },
 ];
 
-const JournalModal = ({ isOpen, onClose, onJournalCreated }) => {
+const JournalModal = ({ isOpen, onClose, onJournalCreated, editingJournal }) => {
   const [title, setTitle] = useState("");
   const [shortDescription, setShortDescription] = useState("");
   const [color, setColor] = useState("#fff");
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
   const [pattern, setPattern] = useState(patterns[0].id);
+
+  useEffect(() => {
+    if (isOpen && editingJournal) {
+      setTitle(editingJournal.title);
+      setShortDescription(editingJournal.shortDescription);
+      setColor(editingJournal.color);
+      setPattern(editingJournal.pattern);
+    }
+  }, [isOpen, editingJournal]);
 
   const toggleColorPicker = () => {
     setColorPickerOpen((prev) => !prev);
@@ -42,21 +52,26 @@ const JournalModal = ({ isOpen, onClose, onJournalCreated }) => {
   };
   const handleCreate = async (e) => {
     e.preventDefault();
+    const journalData = { title, shortDescription, color, pattern };
+
     try {
-      const response = await axios.post("http://localhost:8000/journal", {
-        title,
-        shortDescription,
-        color,
-        pattern,
-      });
-      onClose();
-      onJournalCreated();
-      clearAllFields();
-      console.log("This journal has been sent to the server: ", response);
+      let response;
+      if (editingJournal) {
+        // Update existing journal
+        response = await axios.put(`http://localhost:8000/journal/${editingJournal.journalId}`, journalData);
+      } else {
+        // Create new journal
+        response = await axios.post("http://localhost:8000/journal", journalData);
+      }
+      console.log("Journal saved: ", response.data);
+      onJournalCreated(); // Notify parent component to refresh list
+      onClose(); // Close the modal
+      clearAllFields(); // Clear the form fields
     } catch (error) {
-      console.log("Error creating the journal", error);
+      console.log("Error saving the journal", error);
     }
   };
+
 
   const handleX = async (e) => {
     e.preventDefault();
@@ -173,7 +188,7 @@ const JournalModal = ({ isOpen, onClose, onJournalCreated }) => {
                 onClick={handleCreate}
                 className="bg-white text-black text-3xl font-bold border-2 border-black px-4 py-2 rounded font-amatic-sc active:bg-slate-400 transition-colors"
               >
-                Create
+                {editingJournal ? "Save" : "Create"}
               </button>
             </div>
           </div>

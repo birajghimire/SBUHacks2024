@@ -7,7 +7,7 @@ const connectDB = require("./config/db");
 
 const gptRoutes = require("./routes/gptRoutes");
 const journalRoutes = require("./routes/journalRoutes");
-
+const userRoutes = require("./routes/userRoutes");
 //connect to the database
 connectDB();
 
@@ -18,5 +18,5 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/", gptRoutes);
 app.use("/", journalRoutes);
-
+app.use("/", userRoutes);
 app.listen(port, () => console.log(`Server listening on port ${port}`));

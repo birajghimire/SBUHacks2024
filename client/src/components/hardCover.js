@@ -4,7 +4,7 @@ import './options.css'
 const HardCover = React.forwardRef((props, ref) => {
     console.log("HARD",props);
   // console.log(props.color)
-  // console.log(props.pattern)
+   console.log(props.pattern)
   return (
     <div ref={ref}>
       <div style={{ 
@@ -38,6 +38,7 @@ const HardCover = React.forwardRef((props, ref) => {
         {props.side && <div onClick={props.turnDirection} className="w-8">
         </div>}
       </div>
+      <div onClick={props.goToEnd} className="btn">Hi</div>
     </div>
   );
 });

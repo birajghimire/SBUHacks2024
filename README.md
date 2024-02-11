@@ -16,7 +16,7 @@ Submitted by:
 ## Summary
 
 
-**MindScribe:** Elevate journaling with personalized bot companions. Specify any companion to your imagination from therapists to fitness coaches, for empathetic responses and tailored guidance. 
+**MindScribe:** Transform mental health with AI. Personalized companions for emotional support and growth, anytime. Choose your friend and elevate your journaling journey.
 
 ## Inspiration
 For many people, our journal pages often are filled with a jumbled mess of incomplete thoughts and fleeting ideas. Even still, just the act of scribbling proves to be therapeutic or even enlightening at times, which sparked a question: _How could we harness technology to organize and elevate the mental health benefits of journaling_? Inspired by this question, we conceived the concept of MindScribe which centered around fostering personal growth and self-discovery through AI.

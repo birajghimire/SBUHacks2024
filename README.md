@@ -8,12 +8,14 @@ Submitted by:
 - **Hao Duong**
 - **Tony Bui**
 
+<div class="image-container">
+    <img src="https://i.imgur.com/xc0vQyL.png" alt="Logo" width="32" height="32" />
+</div>
+
 
 ## Summary
 
-<div class="image-container">
-    <img src="https://i.imgur.com/xc0vQyL.png" alt="Logo" />
-</div>
+
 
 **MindScribe:** Elevate journaling with personalized bot companions. Specify any companion to your imagination from therapists to fitness coaches, for empathetic responses and tailored guidance. 
 

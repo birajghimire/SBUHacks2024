@@ -13,7 +13,7 @@ const SearchBox = ({ setSearchQuery }) => {
         <input
           type="text"
           placeholder="Search"
-          className="bg-[#F4D598] rounded-[10px] py-2 pl-10 pr-4 w-[650px] focus:outline-none focus:ring-2 focus:ring-blue-500 font-protest-riot"
+          className="bg-[white] rounded-[10px] py-2 pl-10 pr-4 w-[650px] focus:outline-none focus:ring-2 focus:ring-blue-500 font-protest-riot"
           onChange={handleSearchChange}
         />
         <div className="absolute left-3 top-1/2 transform -translate-y-1/2">

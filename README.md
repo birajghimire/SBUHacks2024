@@ -48,3 +48,5 @@ By consolidating our everyday thoughts in specialized journals and further refin
 - [GPT-4](https://openai.com/gpt-4)
 #### Design:
 - [Figma](https://www.figma.com)
+## What's next for MindScribe
+In the future, we intend to expand MindScribe's capabilities by introducing quantitative features such as mood tracking, goal setting, and additional companion options. In addition, we plan to make companions even more dynamic by training on said quantitative features throughout writing in the journal. We will also implement more user-friendly functionalities such as scanning pages and speech-to-text to improve ease of use. 

@@ -12,6 +12,12 @@ export default function HomePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [journals, setJournals] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [editingJournal, setEditingJournal] = useState(null);
+
+  const handleEdit = (journal) => {
+    setEditingJournal(journal);
+    setIsModalOpen(true);
+  };
 
   const getJournals = async () => {
     try {
@@ -36,6 +42,11 @@ export default function HomePage() {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setEditingJournal(null);
+  };
+
+  const handleJournalDeleted = () => {
+    getJournals();
   };
 
   return (
@@ -50,10 +61,13 @@ export default function HomePage() {
           .map((journal) => (
             <JournalBox
               key={journal._id}
+              journalId={journal._id}
               title={journal.title}
               color={journal.color}
               shortDescription={journal.shortDescription}
               pattern={journal.pattern}
+              onJournalDeleted={handleJournalDeleted}
+              onEdit={handleEdit}
             />
           ))}
       </div>
@@ -62,6 +76,7 @@ export default function HomePage() {
         isOpen={isModalOpen}
         onClose={closeModal}
         onJournalCreated={handleJournalCreated}
+        editingJournal={editingJournal}
       />
     </div>
   );

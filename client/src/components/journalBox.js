@@ -1,5 +1,7 @@
 import React from "react";
 import { Menu } from "@headlessui/react";
+import axios from "axios";
+import JournalModalBox from "./journalModalBox";
 
 const patterns = [
   { id: "default", name: "ink", img: "url(ink_layer.svg)" },
@@ -7,7 +9,17 @@ const patterns = [
   { id: "pattern2", name: "fillinblank2", img: "url(ink_layer.svg)" },
 ];
 
-const JournalBox = ({ title, shortDescription, color, pattern }) => {
+const JournalBox = ({ journalId, title, shortDescription, color, pattern, onJournalDeleted, onEdit }) => {
+  const handleDelete = async () => {
+    try {
+      const deletedJournal = await axios.delete(`http://localhost:8000/journal/${journalId}`);
+      console.log(deletedJournal);
+      onJournalDeleted();
+    } catch (error) {
+      console.log("Error deleting the journal: ", error);
+    }
+  };
+
   return (
     <div
       style={{
@@ -40,9 +52,8 @@ const JournalBox = ({ title, shortDescription, color, pattern }) => {
             <Menu.Item>
               {({ active }) => (
                 <button
-                  className={`${
-                    active ? "bg-gray-100" : ""
-                  } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                  onClick={() => onEdit({ journalId, title, shortDescription, color, pattern })}
+                  className={`${active ? "bg-gray-100" : ""} group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                 >
                   Edit
                 </button>
@@ -51,9 +62,9 @@ const JournalBox = ({ title, shortDescription, color, pattern }) => {
             <Menu.Item>
               {({ active }) => (
                 <button
-                  className={`${
-                    active ? "bg-gray-100" : ""
-                  } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                  onClick={handleDelete}
+                  className={`${active ? "bg-gray-100" : ""
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                 >
                   Delete
                 </button>

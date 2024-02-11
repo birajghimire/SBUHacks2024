@@ -25,7 +25,7 @@ const pageSchema = new Schema(
 const journalSchema = new Schema({
   title: String,
   shortDescription: String,
-  bookColor: String,
+  color: String,
   pattern: String,
   date: { type: Date, default: Date.now },
   userId: { type: Schema.Types.ObjectId, ref: "User", required: false },

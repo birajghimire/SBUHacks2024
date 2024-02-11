@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { SketchPicker, ChromePicker } from "react-color";
 import JournalModalBox from "./journalModalBox";
+import axios from "axios";
 
 const patterns = [
   { id: "default", name: "ink", img: "url(ink_layer.svg)" },
@@ -8,9 +9,10 @@ const patterns = [
   { id: "pattern2", name: "fillinblank2", img: "url(ink_layer.svg)" },
 ];
 
-const JournalModal = ({ isOpen, onClose }) => {
-  const [color, setColor] = useState("#fff");
+const JournalModal = ({ isOpen, onClose, onJournalCreated }) => {
   const [title, setTitle] = useState("");
+  const [shortDescription, setShortDescription] = useState("");
+  const [color, setColor] = useState("#fff");
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
   const [pattern, setPattern] = useState(patterns[0].id);
 
@@ -31,8 +33,39 @@ const JournalModal = ({ isOpen, onClose }) => {
     e.stopPropagation();
   };
 
-  const handleCreate = () => {
-    console.log("Creating journal...");
+  const clearAllFields = () => {
+    setTitle("");
+    setShortDescription("");
+    setColor("#fff");
+    setPattern(patterns[0].id);
+    setColorPickerOpen(false);
+  };
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8000/journal", {
+        title,
+        shortDescription,
+        color,
+        pattern,
+      });
+      onClose();
+      onJournalCreated();
+      clearAllFields();
+      console.log("This journal has been sent to the server: ", response);
+    } catch (error) {
+      console.log("Error creating the journal", error);
+    }
+  };
+
+  const handleX = async (e) => {
+    e.preventDefault();
+    try {
+      onClose();
+      clearAllFields();
+    } catch (error) {
+      console.log("Did not close");
+    }
   };
 
   const patternImage = useMemo(() => {
@@ -46,7 +79,7 @@ const JournalModal = ({ isOpen, onClose }) => {
       <div className="bg-[#F5F5F5] w-[65%] h-[80%] rounded-xl shadow-lg p-6 relative flex flex-col items-stretch gap-2">
         <button
           className="absolute top-2 right-2 bg-transparent border-none text-gray-400 hover:text-gray-600"
-          onClick={onClose}
+          onClick={handleX}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -83,6 +116,7 @@ const JournalModal = ({ isOpen, onClose }) => {
                   type="text"
                   placeholder="Describe AI Companion..."
                   className="w-full border-b border-gray-700 text-[#6F6F6F] bg-[#F5F5F5] px-3 py-2 focus:outline-none focus:border-blue-500"
+                  onChange={(e) => setShortDescription(e.target.value)}
                 />
               </div>
               <div>
@@ -134,6 +168,7 @@ const JournalModal = ({ isOpen, onClose }) => {
                 text={title}
                 patternImage={patternImage}
               />
+
               <button
                 onClick={handleCreate}
                 className="bg-white text-black text-3xl font-bold border-2 border-black px-4 py-2 rounded font-amatic-sc active:bg-slate-400 transition-colors"

@@ -1,13 +1,13 @@
 <!-- (This is a comment) INSTRUCTIONS: Go through this page and fill out any **bolded** entries with their correct values.-->
 
 # SBU HACKS 2024 - **MindScribe**
-
+---
 Submitted by:
 - **Biraj Ghimire**
 - **Brian Shao**
 - **Hao Duong**
 - **Tony Bui**
-------
+#
 <div class="image-container" align="center">
     <img src="https://i.imgur.com/xc0vQyL.png" alt="Logo" width="256" height="256" />
 </div>

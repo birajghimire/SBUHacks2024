@@ -59,11 +59,11 @@ async function postPageInJournal(req, res) {
 //Just updated the title and shortDescription so that the pages in it arent affected
 async function updateJournal(req, res) {
   try {
-    const { title, shortDescription } = req.body;
+    const { title, shortDescription, bookColor, pattern } = req.body;
 
     const updatedJournal = await Journal.findByIdAndUpdate(
       req.params.journalId,
-      { title, shortDescription }, // update only these fields
+      { title, shortDescription, bookColor, pattern }, // update only these fields
       { new: true, runValidators: true }
     );
 
@@ -80,18 +80,19 @@ async function updateJournal(req, res) {
 //This basically updates the page and analysis is the user wants to do that or else it only updates page using query parameters
 async function updatePageInJournal(req, res) {
   const { text, aiAnalysis } = req.body;
-  const { journalId, pageId } = req.params;
+
   const updateAI = req.query.updateAI === "true";
 
   try {
-    const journal = await Journal.findById(journalId);
+    const journal = await Journal.findById(req.params.journalId);
 
     if (!journal) {
       return res.status(404).json({ message: "Journal not found" });
     }
 
+    console.log(journal.pages[0]);
     const pageIndex = journal.pages.findIndex((page) =>
-      page._id.equals(pageId)
+      page.pageId.equals(req.params.pageId)
     );
 
     if (pageIndex === -1) {
@@ -136,7 +137,7 @@ async function deletePageInJournal(req, res) {
 
     //I want to now loop through the whole pages array and see if the pageId matches if it does I delete
     const pageIndex = journal.pages.findIndex((page) =>
-      page._id.equals(mongoose.Types.ObjectId(req.params.pageId))
+      page.pageId.equals(req.params.pageId)
     );
 
     if (pageIndex > -1) {

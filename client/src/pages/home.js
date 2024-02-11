@@ -40,7 +40,15 @@ export default function HomePage() {
       <Navbar />
       <SearchBox />
       <div className="flex flex-wrap flex-row gap-6 h-screen pl-28">
-        <JournalBox />
+        {journals.map((journal) => (
+          <JournalBox
+            key={journal._id}
+            title={journal.title}
+            color={journal.color}
+            shortDescription={journal.shortDescription}
+            pattern={journal.pattern}
+          />
+        ))}
       </div>
       <PlusButton onClick={openModal} />
       <JournalModal

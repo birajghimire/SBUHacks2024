@@ -31,7 +31,7 @@ const router = createBrowserRouter([
     </>
   },
   {
-    path: "/test",
+    path: "/journal/:journalId",
     element:
     <>
       <Navbar className="absolute" />

@@ -11,7 +11,7 @@ const Navbar = () => {
     <nav className="bg-[#F8F7ED] p-4 flex justify-between items-center">
       <a href="/home">
         <div className="flex items-center">
-          <img src="mindscribe_logo.png" alt="Logo" className="w-14 h-14 mr-2" />
+          <img src="/mindscribe_logo.png" alt="Logo" className="w-14 h-14 mr-2" />
           <h1 className="text-[#1E1E1E] text-xl font-semibold">MindScribe</h1>
         </div>
       </a>
@@ -35,7 +35,7 @@ const Navbar = () => {
                   <span className="sr-only">Open user menu</span>
                   <img
                     className="h-8 w-8 rounded-full"
-                    src="pfp.png"
+                    src="/pfp.png"
                     alt=""
                   />
                 </Menu.Button>

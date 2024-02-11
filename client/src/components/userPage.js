@@ -10,7 +10,7 @@ const UserPage = React.forwardRef((props, ref) => {
     }, []);
     return (
         <div className={`bg-page page bg-white ${props.side ? 'page-right' : 'page-left'}`} ref={ref}>
-            <div className="flex items-stretch h-full w-full">
+            <div className="py-4 flex items-stretch h-full w-full">
                 {!props.side && <div onClick={props.turnDirection} className="w-8">
                 </div>}
                 <textarea

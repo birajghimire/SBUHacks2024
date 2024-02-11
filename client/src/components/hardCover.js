@@ -2,6 +2,7 @@ import React from "react";
 import './options.css'
 
 const HardCover = React.forwardRef((props, ref) => {
+    console.log("HARD",props);
   // console.log(props.color)
   // console.log(props.pattern)
   return (

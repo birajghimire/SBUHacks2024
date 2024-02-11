@@ -11,13 +11,20 @@ const FeedbackPage = React.forwardRef((props, ref) => {
         console.log("Creating Feedback");
         console.log(msg);
         const prompt = {"prompt" : msg};
+        let response = "";
         try{
-            let response = await axios.post("http://localhost:8000/chat", prompt);
+
+            response = await axios.post("http://localhost:8000/chat", prompt);
+            const userBody = {"text" : msg, "aiAnalysis": {"analysisResult": response.data}};
+            let storePage = await axios.post(`http://localhost:8000/journal/${props.id}/pages`, userBody);
             console.log(response);
+            console.log(storePage)
+
         }
         catch(e){
             console.log(e);
         }
+        //props.setEntries(prevEntries => [...prevEntries, msg, response.data]);
         //props.setEntries([...props.entries, props.text, "Ai Response"]);
     }
     return (
@@ -28,7 +35,7 @@ const FeedbackPage = React.forwardRef((props, ref) => {
                 <div className="w-full flex justify-center items-center">
                     <div onClick={createFeedBack} className="cursor-pointer">
                         <div className="btn rounded-full w-20 h-20 bg-neutral flex items-center justify-center">
-                            <img src="bot.png" alt="Default" className="w-12 h-12" />
+                            <img src="/bot.png" alt="Default" className="w-12 h-12" />
                         </div>
                     </div>
                 </div>

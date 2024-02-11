@@ -2,6 +2,7 @@ import React from "react";
 import { Menu } from "@headlessui/react";
 import axios from "axios";
 import JournalModalBox from "./journalModalBox";
+import { useNavigate } from "react-router-dom";
 
 const patterns = [
   { id: "default", name: "ink", img: "url(ink_layer.svg)" },
@@ -10,6 +11,7 @@ const patterns = [
 ];
 
 const JournalBox = ({ journalId, title, shortDescription, color, pattern, onJournalDeleted, onEdit, setAlertMessage }) => {
+  const navigate = useNavigate();
   const handleDelete = async () => {
     try {
       const deletedJournal = await axios.delete(`http://localhost:8000/journal/${journalId}`);
@@ -20,9 +22,14 @@ const JournalBox = ({ journalId, title, shortDescription, color, pattern, onJour
       console.log("Error deleting the journal: ", error);
     }
   };
+  function openJournal(){
+
+    navigate(`/journal/${journalId}`);
+  }
 
   return (
     <div
+      onClick={openJournal}
       style={{
         backgroundColor: color,
         backgroundImage: patterns.find((p) => p.id === pattern).img,

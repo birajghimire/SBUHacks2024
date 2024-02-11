@@ -9,11 +9,12 @@ const patterns = [
   { id: "pattern2", name: "fillinblank2", img: "url(ink_layer.svg)" },
 ];
 
-const JournalBox = ({ journalId, title, shortDescription, color, pattern, onJournalDeleted, onEdit }) => {
+const JournalBox = ({ journalId, title, shortDescription, color, pattern, onJournalDeleted, onEdit, setAlertMessage }) => {
   const handleDelete = async () => {
     try {
       const deletedJournal = await axios.delete(`http://localhost:8000/journal/${journalId}`);
       console.log(deletedJournal);
+      setAlertMessage("Journal Successfully Deleted")
       onJournalDeleted();
     } catch (error) {
       console.log("Error deleting the journal: ", error);

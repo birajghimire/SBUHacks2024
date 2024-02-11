@@ -1,11 +1,11 @@
 // HomePage.js
-
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/navbar";
 import SearchBox from "../components/searchBox";
 import JournalBox from "../components/journalBox";
 import PlusButton from "../components/plusButton";
 import JournalModal from "../components/journalModal";
+import AlertMessage from "../components/alertMessage"; // Import the AlertMessage component
 import axios from "axios";
 
 export default function HomePage() {
@@ -13,6 +13,7 @@ export default function HomePage() {
   const [journals, setJournals] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [editingJournal, setEditingJournal] = useState(null);
+  const [alertMessage, setAlertMessage] = useState(""); // Initialize alertMessage state with an empty string
 
   const handleEdit = (journal) => {
     setEditingJournal(journal);
@@ -24,7 +25,7 @@ export default function HomePage() {
       const response = await axios.get("http://localhost:8000/journal");
       setJournals(response.data);
     } catch (error) {
-      console.log("There was an errr fetching the journals", error);
+      console.log("There was an error fetching the journals", error);
     }
   };
 
@@ -49,9 +50,22 @@ export default function HomePage() {
     getJournals();
   };
 
+  useEffect(() => {
+    if (alertMessage) {
+      console.log(alertMessage);
+      const timer = setTimeout(() => {
+        setAlertMessage("");
+      }, 3000);
+      
+      // Clear the timer when the component unmounts or when the alert message changes
+      return () => clearTimeout(timer);
+    }
+  }, [alertMessage]);
+
   return (
-    <div className="bg-[#F8F7ED] h-screen overflow-auto">
+    <div className="bg-[#F8F7ED] h-screen overflow-auto relative"> 
       <Navbar />
+      {alertMessage && <AlertMessage message={alertMessage} />}
       <SearchBox setSearchQuery={setSearchQuery} />
       <div className="flex flex-wrap flex-row gap-6 h-screen pl-28">
         {journals
@@ -68,6 +82,7 @@ export default function HomePage() {
               pattern={journal.pattern}
               onJournalDeleted={handleJournalDeleted}
               onEdit={handleEdit}
+              setAlertMessage={setAlertMessage}
             />
           ))}
       </div>
@@ -77,6 +92,7 @@ export default function HomePage() {
         onClose={closeModal}
         onJournalCreated={handleJournalCreated}
         editingJournal={editingJournal}
+        setAlertMessage={setAlertMessage} 
       />
     </div>
   );

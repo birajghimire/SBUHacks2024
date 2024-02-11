@@ -2,7 +2,6 @@ import React, { useState, useMemo, useEffect } from "react";
 import { SketchPicker, ChromePicker } from "react-color";
 import JournalModalBox from "./journalModalBox";
 import axios from "axios";
-import AlertMessage from "./alertMessage";
 
 
 const patterns = [
@@ -11,7 +10,7 @@ const patterns = [
   { id: "pattern2", name: "fillinblank2", img: "url(ink_layer.svg)" },
 ];
 
-const JournalModal = ({ isOpen, onClose, onJournalCreated, editingJournal }) => {
+const JournalModal = ({ isOpen, onClose, onJournalCreated, editingJournal, setAlertMessage }) => {
   const [title, setTitle] = useState("");
   const [shortDescription, setShortDescription] = useState("");
   const [color, setColor] = useState("#fff");
@@ -51,6 +50,7 @@ const JournalModal = ({ isOpen, onClose, onJournalCreated, editingJournal }) => 
     setPattern(patterns[0].id);
     setColorPickerOpen(false);
   };
+
   const handleCreate = async (e) => {
     e.preventDefault();
     const journalData = { title, shortDescription, color, pattern };
@@ -60,9 +60,11 @@ const JournalModal = ({ isOpen, onClose, onJournalCreated, editingJournal }) => 
       if (editingJournal) {
         // Update existing journal
         response = await axios.put(`http://localhost:8000/journal/${editingJournal.journalId}`, journalData);
+        setAlertMessage("Journal Successfully Edited"); // Use the function to set the alert message
       } else {
         // Create new journal
         response = await axios.post("http://localhost:8000/journal", journalData);
+        setAlertMessage("Journal Successfully Created"); // Use the function to set the alert message
       }
       console.log("Journal saved: ", response.data);
       onJournalCreated(); // Notify parent component to refresh list
@@ -72,7 +74,6 @@ const JournalModal = ({ isOpen, onClose, onJournalCreated, editingJournal }) => 
       console.log("Error saving the journal", error);
     }
   };
-
 
   const handleX = async (e) => {
     e.preventDefault();

@@ -49,4 +49,4 @@ By consolidating our everyday thoughts in specialized journals and further refin
 #### Design:
 - [Figma](https://www.figma.com)
 ## What's next for MindScribe
-In the future, we intend to expand MindScribe's capabilities by introducing quantitative features such as mood tracking, goal setting, and additional companion options. In addition, we plan to make companions even more dynamic by training on said quantitative features throughout writing in the journal. We will also implement more user-friendly functionalities such as scanning pages and speech-to-text to improve ease of use. 
+MindScribe is more than a project; it's a movement towards embracing mental wellness through technology. As we continue to innovate and expand, we invite you to join us in redefining the art of journaling. Together, let's unlock the full potential of our minds and embark on a journey of growth, reflection, and self-discovery. 

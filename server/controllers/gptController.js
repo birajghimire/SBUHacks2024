@@ -3,7 +3,7 @@ const axios = require('axios');
 
 async function postGPT(req, res) {
 
-    const {prompt} = req.body;
+    const { prompt } = req.body;
     console.log(process.env.OPENAI_API_KEY);
 
     try {
@@ -25,13 +25,13 @@ async function postGPT(req, res) {
         console.log("Response from OpenAI", response.data.choices[0].message.content);
         const openAiContent = response.data.choices[0].message.content;
 
-        res.send(openAiContent)
+        res.json(openAiContent);
 
-    
+
     } catch (error) {
         res.status(500).send(error);
     }
 
 }
 
-module.exports = {postGPT}
+module.exports = { postGPT }

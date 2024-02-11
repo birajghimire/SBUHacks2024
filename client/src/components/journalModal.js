@@ -131,7 +131,7 @@ const JournalModal = ({ isOpen, onClose, onJournalCreated, editingJournal, setAl
               <div>
                 <input
                   type="text"
-                  placeholder="Describe AI Companion..."
+                  placeholder="Describe Your AI Companion..."
                   className="w-full border-b border-gray-700 text-[#6F6F6F] bg-[#F5F5F5] px-3 py-2 focus:outline-none focus:border-blue-500"
                   onChange={(e) => setShortDescription(e.target.value)}
                 />

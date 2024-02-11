@@ -22,22 +22,20 @@ const JournalBox = ({ journalId, title, shortDescription, color, pattern, onJour
       console.log("Error deleting the journal: ", error);
     }
   };
-  function openJournal(){
+  function openJournal() {
 
     navigate(`/journal/${journalId}`);
   }
 
   return (
     <div
-      onClick={openJournal}
       style={{
         backgroundColor: color,
         backgroundImage: patterns.find((p) => p.id === pattern).img,
       }}
-      className={
-        "border-2 w-1/6 h-1/2 border-black rounded-r-[20px] rounded-rl-[20px] m-[30px] shadow-md relative overflow-hidden bg-cover bg-center"
-      }
+      className="border-2 w-1/6 h-1/2 border-black rounded-r-[20px] rounded-rl-[20px] m-[30px] shadow-md relative overflow-hidden bg-cover bg-center"
     >
+      <div onClick={openJournal} className="absolute bottom-0 w-full h-5/6"></div>
       <Menu as="div" className="absolute top-0 right-0 mt-2 mr-2">
         <Menu.Button className="p-2 rounded-full bg-gray-800 text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-800">
           <svg

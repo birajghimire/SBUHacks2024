@@ -4,22 +4,21 @@ import './aipage.css'
 import { useSelector } from "react-redux";
 import { selectText } from "../notebookEditorSlice";
 import axios from "axios";
+// import { useNavigate } from "react-router-dom";
 const FeedbackPage = React.forwardRef((props, ref) => {
+    //console.log("Props ", props.data);
     const msg = useSelector(selectText);
-
     async function createFeedBack() {
         console.log("Creating Feedback");
         console.log(msg);
-        const prompt = {"prompt" : msg};
-        let response = "";
+        const prompt = {"prompt" : msg, "shortDescription": props.data.description};
         try{
-
-            response = await axios.post("http://localhost:8000/chat", prompt);
+            
+            const response = await axios.post("http://localhost:8000/chat", prompt);
             const userBody = {"text" : msg, "aiAnalysis": {"analysisResult": response.data}};
-            let storePage = await axios.post(`http://localhost:8000/journal/${props.id}/pages`, userBody);
-            console.log(response);
-            console.log(storePage)
-
+            await axios.post(`http://localhost:8000/journal/${props.id}/pages`, userBody);
+            // navigate(`/journal/${props.id}?skip=true`);
+            window.location.reload();
         }
         catch(e){
             console.log(e);

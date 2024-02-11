@@ -38,7 +38,7 @@ const HardCover = React.forwardRef((props, ref) => {
         {props.side && <div onClick={props.turnDirection} className="w-8">
         </div>}
       </div>
-      <div onClick={props.goToEnd} className="btn">Hi</div>
+      <div onClick={props.goToEnd} className="btn h-5">Jump</div>
     </div>
   );
 });

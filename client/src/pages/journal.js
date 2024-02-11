@@ -236,7 +236,7 @@ function JournalPage() {
             <HTMLFlipBook
                 key="journal"
                 width={500}
-                height={625}
+                height={590}
                 // size="stretch"
                 // minWidth={315}
                 // maxWidth={1000}

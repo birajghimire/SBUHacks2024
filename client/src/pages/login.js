@@ -10,7 +10,7 @@ export default function LoginPage() {
                 </div>
             </div>
 
-            <div className="flex justify-center items-center bg-white">
+            <div className="flex justify-center items-center bg-[#D6D5C5]">
                 <div className="max-w-md w-full px-10 py-8"> 
                     <Header
                         heading="Login"

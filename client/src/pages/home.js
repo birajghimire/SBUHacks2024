@@ -63,7 +63,7 @@ export default function HomePage() {
   }, [alertMessage]);
 
   return (
-    <div className="bg-[#F8F7ED] h-screen overflow-auto relative"> 
+    <div className="bg-[#D6D5C5] h-screen overflow-auto relative"> 
       <Navbar />
       {alertMessage && <AlertMessage message={alertMessage} />}
       <SearchBox setSearchQuery={setSearchQuery} />

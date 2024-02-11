@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Riot&family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Protest+Revolution&family=Protest+Riot&family=Righteous&display=swap');
+
+body {
+  font-family: "Protest Riot";
+  /* background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/937765/seamless_paper_texture.png); */
+}
+/* 
+.scrapbook {
+  width: 590px;
+  height: 600px;
+}
+
+.l {
+  border-top-left-radius: 80px 5px;
+  border-bottom-left-radius: 80px 5px;
+}
+
+.r {
+  border-top-right-radius: 80px 5px;
+  border-bottom-right-radius: 80px 5px;
+} */
+
+
+.hard h4 {
+  font-family: "Protest Riot";
+  color: white;
+  position: relative; 
+  z-index: 2; 
+  margin-top: 10%;
+}
+
+.hard img.flowers {
+  width: 100%;
+  height: 100%; 
+  position: absolute; 
+  top: 0;
+  left: 0;
+  z-index: 1; 
+}
+
+.hard h1, .hard h2, .hard h3 { 
+  position: relative; 
+  z-index: 2;
+  margin-top: 25%;
+}
+
+
+#journal {
+  margin: auto;
+  /* background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/937765/seamless_paper_texture.png) !important; */
+  left: 20%;
+  top: 7.5%;
+  position: relative;
+}
+
+#journal .page {
+  z-index: 1000 !important;
+  background-color: grey;
+  background-image: url('../../public/page.png');
+  border: solid 1px grey;
+  height: 90%;
+}
+
+#journal .page:hover {
+  border-color: rgb(75, 120, 255);
+}
+
+#journal .page .top-margin {
+  height: 14px;
+}
+
+#journal .page p , h3{
+  margin: 0px;
+  margin-top: 5%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
+#journal .turn-page {
+  background-color: #ccc;
+}
+
+/* #journal .shadow {
+  position: relative;
+  box-shadow: 0 4px 10px #666;
+  z-index: -1000 !important;
+} */

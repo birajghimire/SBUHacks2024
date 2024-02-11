@@ -1,17 +1,148 @@
-import React from "react";
-import { useState } from "react";
-import { SketchPicker } from 'react-color'
+import React, { useState, useMemo } from "react";
+import { SketchPicker, ChromePicker } from "react-color";
+import JournalModalBox from "./journalModalBox";
+
+const patterns = [
+  { id: "default", name: "ink", img: "url(ink_layer.svg)" },
+  { id: "flowers", name: "flowers", img: "url(flowers.png)" },
+  { id: "pattern2", name: "fillinblank2", img: "url(ink_layer.svg)" },
+];
 
 const JournalModal = ({ isOpen, onClose }) => {
-  const [color, setColor] = useState('#fff')
+  const [color, setColor] = useState("#fff");
+  const [title, setTitle] = useState("");
+  const [colorPickerOpen, setColorPickerOpen] = useState(false);
+  const [pattern, setPattern] = useState(patterns[0].id);
+
+  const toggleColorPicker = () => {
+    setColorPickerOpen((prev) => !prev);
+  };
+
+  const handleColorChange = (newColor) => {
+    setColor(newColor.hex);
+  };
+
+  const handlePatternChange = (e) => {
+    setPattern(e.target.value);
+  };
+
+  const trapClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleCreate = () => {
+    console.log("Creating journal...");
+  };
+
+  const patternImage = useMemo(() => {
+    return patterns.find((p) => p.id === pattern).img;
+  }, [pattern]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <h2 className="text-2xl font-semibold mb-4">Journal Entry</h2>
-            <SketchPicker color={color} onChange={(color) => setColor(color.hex)}/>        
-        <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={onClose}>Close</button>
+    <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-black bg-opacity-70 flex items-center justify-center z-50">
+      <div className="bg-[#F5F5F5] w-[65%] h-[80%] rounded-xl shadow-lg p-6 relative flex flex-col items-stretch gap-2">
+        <button
+          className="absolute top-2 right-2 bg-transparent border-none text-gray-400 hover:text-gray-600"
+          onClick={onClose}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-10 w-10"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <h2 className="text-3xl font-semibold underline font-amatic-sc">
+          New Journal
+        </h2>
+        <div className="flex flex-row [&>div]:flex-1 items-stretch gap-8 flex-1">
+          <div className="flex items-center justify-center">
+            <div className="max-w-md w-full font-protest-riot flex flex-col bg-color space-y-4 pb-40">
+              <div>
+                <input
+                  type="text"
+                  placeholder="Title..."
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className="w-full border-b border-gray-700 text-[#6F6F6F] bg-[#F5F5F5] px-3 py-2 focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  placeholder="Describe AI Companion..."
+                  className="w-full border-b border-gray-700 text-[#6F6F6F] bg-[#F5F5F5] px-3 py-2 focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <select
+                  value={pattern}
+                  onChange={handlePatternChange}
+                  className="w-full border-b border-gray-700 text-[#6F6F6F] bg-[#F5F5F5] px-3 py-2 focus:outline-none focus:border-blue-500"
+                >
+                  {patterns.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={color}
+                  readOnly
+                  placeholder="Color Hex"
+                  className="w-full border-b border-gray-700 text-[#6F6F6F] bg-[#F5F5F5] px-3 py-2 focus:outline-none focus:border-blue-500"
+                />
+                <div
+                  className="w-6 h-6 absolute top-1/2 right-2 hover:border-2 hover:border-slate-300 border-box -translate-y-1/2 border border-black"
+                  style={{ backgroundColor: color }}
+                  onClick={toggleColorPicker}
+                >
+                  <span className="sr-only">Pick Color</span>
+                  <div
+                    className="absolute bottom-0 right-0 top-10"
+                    style={{ display: colorPickerOpen ? "block" : "none" }}
+                    onClick={trapClick}
+                  >
+                    <ChromePicker
+                      color={color}
+                      onChange={handleColorChange}
+                      className=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center justify-center">
+            <div className="flex flex-col gap-4 items-stretch">
+              <JournalModalBox
+                backgroundColor={color}
+                text={title}
+                patternImage={patternImage}
+              />
+              <button
+                onClick={handleCreate}
+                className="bg-white text-black text-3xl font-bold border-2 border-black px-4 py-2 rounded font-amatic-sc active:bg-slate-400 transition-colors"
+              >
+                Create
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="bg-[#F5F5F5] h-screen overflow-auto">
+    <div className="bg-[#F8F7ED] h-screen overflow-auto">
       <Navbar />
       <SearchBox />
       <div className="flex flex-wrap flex-row gap-6 h-screen pl-28">

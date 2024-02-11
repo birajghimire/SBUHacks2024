@@ -9,7 +9,7 @@ Submitted by:
 - **Tony Bui**
 
 <div class="image-container" align="center">
-    <img src="https://i.imgur.com/xc0vQyL.png" alt="Logo" width="512" height="512" />
+    <img src="https://i.imgur.com/xc0vQyL.png" alt="Logo" width="256" height="256" />
 </div>
 
 

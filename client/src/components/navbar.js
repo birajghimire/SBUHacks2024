@@ -63,7 +63,7 @@ const Navbar = () => {
                 </Menu.Items>
               </Transition>
             </Menu>
-            <span className="ml-2 text-base text-[14px]">Hao Duong</span>
+            <span className="ml-2 text-base text-[14px]">Biraj</span>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import { SketchPicker, ChromePicker } from "react-color";
 import JournalModalBox from "./journalModalBox";
 import axios from "axios";
+import AlertMessage from "./alertMessage";
 
 const patterns = [
   { id: "default", name: "ink", img: "url(ink_layer.svg)" },

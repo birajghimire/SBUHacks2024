@@ -8,9 +8,10 @@ Submitted by:
 - **Hao Duong**
 - **Tony Bui**
 
-<div class="image-container">
-    <img src="https://i.imgur.com/xc0vQyL.png" alt="Logo" width="32" height="32" />
+<div class="image-container" align="center">
+    <img src="https://i.imgur.com/xc0vQyL.png" alt="Logo" width="512" height="512" />
 </div>
+
 
 
 ## Summary

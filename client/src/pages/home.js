@@ -1,3 +1,5 @@
+// HomePage.js
+
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/navbar";
 import SearchBox from "../components/searchBox";
@@ -9,6 +11,7 @@ import axios from "axios";
 export default function HomePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [journals, setJournals] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const getJournals = async () => {
     try {
@@ -38,17 +41,21 @@ export default function HomePage() {
   return (
     <div className="bg-[#F8F7ED] h-screen overflow-auto">
       <Navbar />
-      <SearchBox />
+      <SearchBox setSearchQuery={setSearchQuery} />
       <div className="flex flex-wrap flex-row gap-6 h-screen pl-28">
-        {journals.map((journal) => (
-          <JournalBox
-            key={journal._id}
-            title={journal.title}
-            color={journal.color}
-            shortDescription={journal.shortDescription}
-            pattern={journal.pattern}
-          />
-        ))}
+        {journals
+          .filter((journal) =>
+            journal.title.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+          .map((journal) => (
+            <JournalBox
+              key={journal._id}
+              title={journal.title}
+              color={journal.color}
+              shortDescription={journal.shortDescription}
+              pattern={journal.pattern}
+            />
+          ))}
       </div>
       <PlusButton onClick={openModal} />
       <JournalModal

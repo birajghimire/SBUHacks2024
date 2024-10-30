@@ -5,6 +5,7 @@ import FormAction from "./formSubmit";
 import FormExtra from "./formExtraContent";
 import Input from "./input";
 import axios from 'axios';
+require('dotenv').config();
 
 export default function Signup(){
     const initialState = signupFields.reduce((acc, field) => {
@@ -34,7 +35,7 @@ export default function Signup(){
         console.log(username, email, password, confirmPassword); // Debugging: Ensure these values are correct
     
         try {
-            const result = await axios.post('http://localhost:8000/register', {
+            const result = await axios.post(`${process.env.API_URL}/register`, {
                 username,
                 email,
                 password,

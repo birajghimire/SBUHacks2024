@@ -3,7 +3,7 @@ import { Menu } from "@headlessui/react";
 import axios from "axios";
 import JournalModalBox from "./journalModalBox";
 import { useNavigate } from "react-router-dom";
-
+require('dotenv').config();
 const patterns = [
   { id: "default", name: "ink", img: "url(ink_layer.svg)" },
   { id: "flowers", name: "flowers", img: "url(flowers.png)" },
@@ -14,7 +14,7 @@ const JournalBox = ({ journalId, title, shortDescription, color, pattern, onJour
   const navigate = useNavigate();
   const handleDelete = async () => {
     try {
-      const deletedJournal = await axios.delete(`http://localhost:8000/journal/${journalId}`);
+      const deletedJournal = await axios.delete(`${process.env.API_URL}/journal/${journalId}`);
       console.log(deletedJournal);
       setAlertMessage("Journal Successfully Deleted")
       onJournalDeleted();

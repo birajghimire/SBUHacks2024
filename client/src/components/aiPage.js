@@ -3,8 +3,10 @@ import '../stylesheets/options.css';
 import '../stylesheets/aipage.css';
 import { useSelector } from "react-redux";
 import { selectText } from "../notebookEditorSlice";
+require('dotenv').config();
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
+const client_url = process.env.CLIENT_URL || 'http://localhost:3000';
 const FeedbackPage = React.forwardRef((props, ref) => {
     //console.log("Props ", props.data);
     const msg = useSelector(selectText);
@@ -14,9 +16,9 @@ const FeedbackPage = React.forwardRef((props, ref) => {
         const prompt = {"prompt" : msg, "shortDescription": props.data.description};
         try{
             
-            const response = await axios.post("http://localhost:8000/chat", prompt);
+            const response = await axios.post(`${process.env.API_URL}/chat`, prompt);
             const userBody = {"text" : msg, "aiAnalysis": {"analysisResult": response.data}};
-            await axios.post(`http://localhost:8000/journal/${props.id}/pages`, userBody);
+            await axios.post(`${process.env.API_URL}/journal/${props.id}/pages`, userBody);
             // navigate(`/journal/${props.id}?skip=true`);
             window.location.reload();
         }

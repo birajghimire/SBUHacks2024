@@ -3,7 +3,7 @@ import { SketchPicker, ChromePicker } from "react-color";
 import JournalModalBox from "./journalModalBox";
 import axios from "axios";
 
-
+require('dotenv').config();
 const patterns = [
   { id: "default", name: "ink", img: "url(ink_layer.svg)" },
   { id: "flowers", name: "flowers", img: "url(flowers.png)" },
@@ -59,11 +59,11 @@ const JournalModal = ({ isOpen, onClose, onJournalCreated, editingJournal, setAl
       let response;
       if (editingJournal) {
         // Update existing journal
-        response = await axios.put(`http://localhost:8000/journal/${editingJournal.journalId}`, journalData);
+        response = await axios.put(`${process.env.API_URL}/journal/${editingJournal.journalId}`, journalData);
         setAlertMessage("Journal Successfully Edited"); // Use the function to set the alert message
       } else {
         // Create new journal
-        response = await axios.post("http://localhost:8000/journal", journalData);
+        response = await axios.post(`${process.env.API_URL}/journal`, journalData);
         setAlertMessage("Journal Successfully Created"); // Use the function to set the alert message
       }
       console.log("Journal saved: ", response.data);

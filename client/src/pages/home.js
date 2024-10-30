@@ -7,8 +7,7 @@ import PlusButton from "../components/plusButton";
 import JournalModal from "../components/journalModal";
 import AlertMessage from "../components/alertMessage"; // Import the AlertMessage component
 import axios from "axios";
-require('dotenv').config();
-
+const API_URL = process.env.REACT_APP_BASE_URL || '';
 export default function HomePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [journals, setJournals] = useState([]);
@@ -23,7 +22,7 @@ export default function HomePage() {
 
   const getJournals = async () => {
     try {
-      const response = await axios.get(`${process.env.API_URL}/journal`);
+      const response = await axios.get(`${API_URL}/journal`);
       setJournals(response.data);
     } catch (error) {
       console.log("There was an error fetching the journals", error);

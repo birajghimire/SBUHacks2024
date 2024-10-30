@@ -5,8 +5,7 @@ import FormAction from "./formSubmit";
 import FormExtra from "./formExtraContent";
 import Input from "./input";
 import axios from 'axios';
-require('dotenv').config();
-
+const API_URL = process.env.REACT_APP_BASE_URL || '';
 export default function Signup(){
     const initialState = signupFields.reduce((acc, field) => {
         acc[field.id] = '';
@@ -35,7 +34,7 @@ export default function Signup(){
         console.log(username, email, password, confirmPassword); // Debugging: Ensure these values are correct
     
         try {
-            const result = await axios.post(`${process.env.API_URL}/register`, {
+            const result = await axios.post(`${API_URL}/register`, {
                 username,
                 email,
                 password,

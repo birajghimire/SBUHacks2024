@@ -5,7 +5,7 @@ import FormAction from "./formSubmit";
 import FormExtra from "./formExtraContent";
 import Input from "./input";
 import axios from 'axios';
-require('dotenv').config();
+const API_URL = process.env.REACT_APP_BASE_URL || '';
 export default function Login(){
     //empty initial state map each k, v in the map represets an input box
     const initialState = loginFields.reduce((acc, field) => {
@@ -36,7 +36,7 @@ export default function Login(){
         console.log(email, password); // For debugging
     
         try {
-            const response = await axios.post(`${process.env.API_URL}/login`, {
+            const response = await axios.post(`${API_URL}/login`, {
                 email,
                 password
             });

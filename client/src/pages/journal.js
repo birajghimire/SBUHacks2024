@@ -7,7 +7,7 @@ import UserPage from '../components/userPage';
 import FeedbackPage from '../components/aiPage';
 import { useParams, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
-require('dotenv').config();
+const API_URL = process.env.REACT_APP_BASE_URL || '';
 //const items = [["Art of Jank Programming", "End me", "Brian Shao", "default", "#ffffff"], "Hello \nI am dead.", "That's so sad"];
 // const patterns = [
 const PATTERNS = [
@@ -115,7 +115,7 @@ function JournalPage() {
             setError(null)
 
             try {
-                const { data } = await axios.get(`${process.env.API_URL}/journal/${journalId}`, {
+                const { data } = await axios.get(`${API_URL}/journal/${journalId}`, {
                     signal: controller.signal
                 })
 

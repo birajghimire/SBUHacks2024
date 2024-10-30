@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import './options.css';
+import '../stylesheets/options.css';
 import { useDispatch, useSelector } from "react-redux";
 import { selectText, update } from "../notebookEditorSlice";
 const UserPage = React.forwardRef((props, ref) => {

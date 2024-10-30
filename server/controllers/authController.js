@@ -2,8 +2,72 @@ const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
+const nodemailer = require('nodemailer');
+const Token = require('../models/tokenModel');
+const crypto = require('crypto');
+const { google } = require('googleapis');
+const OAuth2 = google.auth.OAuth2;
 require('dotenv').config();
 
+
+const oauth2Client = new OAuth2(
+    process.env.OAUTH_CLIENT_ID,
+    process.env.OAUTH_CLIENT_SECRET,
+    "http://localhost:3000/"
+);
+oauth2Client.setCredentials({
+    refresh_token: process.env.OAUTH_REFRESH_TOKEN,
+});
+const verifyToken = async (req, res) => {
+    try {
+        const user = await User.findOne({ _id: req.params.id });
+        if (!user) {
+            return res.status(400).send('User not found');
+        }
+        const token = await Token.findOne({ 
+            userId: user._id,
+            token: req.params.token 
+        });
+        if (!token) {
+            return res.status(400).send('Token not found');
+        }
+        await User.updateOne({ _id: user._id }, { verified: true });
+        await token.deleteOne();
+
+        res.status(200).send('Account verified successfully');
+    } catch (error) {
+        res.status(500).send('Error verifying account');
+    }
+}
+
+const sendEmail = async (email, subject, text) => {
+    try {
+        const accessTokenResponse = await oauth2Client.getAccessToken();
+        const accessToken = accessTokenResponse.token;
+        console.log("clientid", process.env.OAUTH_CLIENT_ID);
+        console.log("clientsecret", process.env.OAUTH_CLIENT_SECRET);
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                type: 'OAuth2',
+                user: process.env.EMAIL_USER,
+                clientId: process.env.OAUTH_CLIENT_ID,
+                clientSecret: process.env.OAUTH_CLIENT_SECRET,
+                refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+                accessToken: accessToken,
+            },
+        });
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: subject,
+            text: text,
+        });
+        console.log('Email sent successfully');
+    } catch (error) {
+        console.error('Error sending email:', error);
+    }
+};
 const register = async (req, res) => {
     try {
         const { username, email, password } = req.body;
@@ -27,8 +91,15 @@ const register = async (req, res) => {
         // Save the user to the database
         await user.save();
 
+        //create token
+        const token = await new Token({
+            userId: user._id,
+            token: crypto.randomBytes(16).toString('hex')
+        }).save();
+        const url = `${process.env.BASE_URL}/user/${user._id}/confirmation/${token.token}`;
+        await sendEmail(user.email, 'Account Verification', `Click the link to verify your account: ${url}`);
         // Send success response
-        res.status(201).send('User registered successfully');
+        res.status(201).send('User registered successfully and email sent');
     } catch (error) {
         console.error('Registration error:', error);
         res.status(500).send('Error registering new user');
@@ -134,5 +205,6 @@ module.exports = {
     updateUser,
     deleteUser,
     logoutUser,
-    getLoggedIn
+    getLoggedIn,
+    verifyToken
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import './options.css'
+import '../stylesheets/options.css';
 
 const HardCover = React.forwardRef((props, ref) => {
     console.log("HARD",props);

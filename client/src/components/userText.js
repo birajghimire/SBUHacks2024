@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import './options.css';
+import '../stylesheets/options.css';
 
 const Page = React.memo(React.forwardRef((props, ref) => {
     useEffect(() => {

@@ -1,0 +1,9 @@
+.page-right {
+    border-top-right-radius: 5%;
+    border-bottom-right-radius: 5%;
+}
+
+.page-left {
+    border-top-left-radius: 5%;
+    border-bottom-left-radius: 5%;
+}

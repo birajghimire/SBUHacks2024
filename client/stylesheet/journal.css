@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Riot&family=Righteous&display=swap');
+
+#root .page {
+    /* background-color: grey;
+    background-image: url('../../public/page.png');
+    border: solid 1px grey;
+    height: 90%; */
+    background-image: url('../../public/paper3.jpg');
+    border: solid 1px grey
+  }
+  
+/* #root .coverback {
+  background-color: grey;
+  background-image: url('../../public/cover2.avif');
+  border: solid 1px grey;
+} */
+  /* #root .page-cover {
+    z-index: 1000 !important;
+    background-color: grey;
+    background-image: url('../../public/page.png');
+    border: solid 1px grey;
+    height: 90%;
+  } */
+

@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Riot&family=Righteous&display=swap');
+
+.page {
+    font-size: 150%;
+    font-family: "Protest Revolution";
+    /* box-shadow: 0 0 10px #999; */
+    /* border-top-left-radius: 0px !important; */
+    /* background-color: black; */
+    background-image: url("../../public/flowers_transparent.png") !important;
+    text-align: center;
+    height: 610px;
+    /* border-top-left-radius: 5%;
+    border-bottom-left-radius: 5%; */
+    }

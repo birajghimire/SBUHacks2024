@@ -10,7 +10,8 @@ const userSchema = new Schema({
     email: { type: String, required: true, unique: true },
     passwordHash: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
-    lastLogin: Date
+    lastLogin: Date,
+    verified: {type: Boolean, default: false}
 })
 
 const User = mongoose.model('User', userSchema);

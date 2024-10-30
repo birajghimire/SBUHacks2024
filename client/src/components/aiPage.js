@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import './options.css';
-import './aipage.css'
+import '../stylesheets/options.css';
+import '../stylesheets/aipage.css';
 import { useSelector } from "react-redux";
 import { selectText } from "../notebookEditorSlice";
 import axios from "axios";
